@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="name")
 public class User {
     @Id
     @GeneratedValue
