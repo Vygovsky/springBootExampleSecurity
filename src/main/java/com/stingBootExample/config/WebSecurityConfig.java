@@ -21,15 +21,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/registration").permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers("/","/registration").permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/login")
+                    .permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                    .logout()
+                    .permitAll();
     }
 
     @Override
@@ -40,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery("select name, password, active from user where name=?")
                 .authoritiesByUsernameQuery("select u.name, ur.roles, from user u inner join " +
                         "user_role ur on u.id=ur.user_id where u.name=?");
+
+
     }
 }
 

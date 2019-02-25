@@ -28,6 +28,7 @@ public class RegistrationController {
         User byUserNameFromDb = userRepository.findUserByName(user.getName());
         if (byUserNameFromDb != null) {
             model.put("message", "User exist!!!");
+            return "registration";
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
