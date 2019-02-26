@@ -19,7 +19,6 @@ public class RegistrationController {
     public String registration() {
         return "registration";
     }
-
 /*    @PostMapping("/registration")
     public String addUser(User user, Map<String, Object> model) {
         User byUserNameFromDb = userRepository.findUserByName(user.getName());

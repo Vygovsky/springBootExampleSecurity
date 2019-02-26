@@ -48,5 +48,4 @@ public class MainController {
         model.put("messages", messages);
         return "index";
     }
-
 }
