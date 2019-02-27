@@ -1,8 +1,10 @@
 package com.stingBootExample.controller;
 
 import com.stingBootExample.entity.Message;
+import com.stingBootExample.entity.User;
 import com.stingBootExample.repos.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,8 +31,12 @@ public class MainController {
     }
 
     @PostMapping("/index")
-    public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        Message massage = new Message(text, tag);
+    public String add(
+            @AuthenticationPrincipal User user,
+            @RequestParam String text,
+            @RequestParam String tag,
+            Map<String, Object> model) {
+        Message massage = new Message(text, tag, user);
         messageRepository.save(massage);
         Iterable<Message> messages = messageRepository.findAll();
         model.put("messages", messages);

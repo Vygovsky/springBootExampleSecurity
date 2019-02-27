@@ -11,12 +11,25 @@ public class Message {
     private String text;
     private String tag;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Message() {
     }
 
-    public Message(String text, String tag) {
+    public Message(String text, String tag, User user) {
+        this.user = user;
         this.text = text;
         this.tag = tag;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -42,4 +55,9 @@ public class Message {
     public void setTag(String tag) {
         this.tag = tag;
     }
+
+    public String getUserName() {
+        return user != null ? user.getName() : "<none>";
+    }
+
 }
