@@ -6,6 +6,7 @@ import com.stingBootExample.repos.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,9 +25,16 @@ public class MainController {
     }
 
     @GetMapping("/index")
-    public String index(Map<String, Object> model) {
+    public String index(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
         Iterable<Message> messages = messageRepository.findAll();
-        model.put("messages", messages);
+
+        if (filter != null && !filter.isEmpty()) {
+            messages = messageRepository.findByTag(filter);
+        } else {
+            messages = messageRepository.findAll();
+        }
+        model.addAttribute("messages", messages);
+        model.addAttribute("filter", filter);
         return "index";
     }
 
@@ -39,18 +47,6 @@ public class MainController {
         Message massage = new Message(text, tag, user);
         messageRepository.save(massage);
         Iterable<Message> messages = messageRepository.findAll();
-        model.put("messages", messages);
-        return "index";
-    }
-
-    @PostMapping("filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Message> messages;
-        if (filter != null && !filter.isEmpty()) {
-            messages = messageRepository.findByTag(filter);
-        } else {
-            messages = messageRepository.findAll();
-        }
         model.put("messages", messages);
         return "index";
     }
