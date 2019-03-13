@@ -31,10 +31,12 @@
     <b>${message.tag}</b>
     <strong>${message.userName}</strong>
     <div>
-       <if message.filename??>
+       <#if message.filename??>
            <img src="/img/${message.filename}"
+       </#if>
     </div>
 </div>
+
     <#else>
 No messages
     </#list>
