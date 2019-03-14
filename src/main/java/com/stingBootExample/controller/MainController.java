@@ -3,7 +3,6 @@ package com.stingBootExample.controller;
 import com.stingBootExample.entity.Message;
 import com.stingBootExample.entity.User;
 import com.stingBootExample.repos.MessageRepository;
-import javassist.bytecode.analysis.MultiType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -56,18 +55,22 @@ public class MainController {
             @RequestParam String tag,
             @RequestParam("file") MultipartFile file,
             Map<String, Object> model) throws IOException {
-        Message massage = new Message(text, tag, user);
-        if (file != null&&!file.getOriginalFilename().isEmpty()) {
+        Message message = new Message(text, tag, user);
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
+
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
+
             String uuidFile = UUID.randomUUID().toString();
-            String resultFile = uuidFile + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + resultFile));
-            massage.setFilename(resultFile);
+            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+
+            message.setFilename(resultFilename);
         }
-        messageRepository.save(massage);
+        messageRepository.save(message);
         Iterable<Message> messages = messageRepository.findAll();
         model.put("messages", messages);
         return "index";
