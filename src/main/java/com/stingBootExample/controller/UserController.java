@@ -36,12 +36,11 @@ public class UserController {
     }
 
     @PostMapping
-    public String saveUser(@RequestParam String name,
+    public String saveUser(@RequestParam String username,
                            @RequestParam Map<String, String> form,
                            @RequestParam("userId") User user) {
 
-        user.setName(name);
-        userRepository.save(user);
+        user.setUsername(username);
         Set<String> roles =
                 Arrays.stream(Role.values())
                         .map(Role::name)

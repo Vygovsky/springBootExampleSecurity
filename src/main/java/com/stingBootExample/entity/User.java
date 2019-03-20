@@ -12,7 +12,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
+    private String username;
     private String password;
     private boolean active;
 
@@ -37,12 +37,8 @@ public class User implements UserDetails {
         this.active = active;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -56,7 +52,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override

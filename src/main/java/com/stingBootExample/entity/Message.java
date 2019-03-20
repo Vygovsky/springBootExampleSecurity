@@ -58,7 +58,7 @@ public class Message {
     }
 
     public String getUserName() {
-        return user != null ? user.getName() : "<none>";
+        return user != null ? user.getUsername() : "<none>";
     }
     public String getFilename() {
         return filename;
