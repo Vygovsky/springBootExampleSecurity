@@ -21,7 +21,7 @@ import java.util.UUID;
 @Controller
 public class MainController {
 
-    @Value("{upload.path}")
+    @Value("${upload.path}")
     private String uploadPath;
 
     @Autowired
@@ -70,8 +70,11 @@ public class MainController {
 
             message.setFilename(resultFilename);
         }
+
         messageRepository.save(message);
+
         Iterable<Message> messages = messageRepository.findAll();
+
         model.put("messages", messages);
         return "index";
     }
