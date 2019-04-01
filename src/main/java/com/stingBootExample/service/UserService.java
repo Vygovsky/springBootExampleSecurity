@@ -4,7 +4,6 @@ import com.stingBootExample.entity.Role;
 import com.stingBootExample.entity.User;
 import com.stingBootExample.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,7 +12,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.UUID;
-@EnableAutoConfiguration
+
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
@@ -34,12 +33,12 @@ public class UserService implements UserDetailsService {
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
-        user.setActovationCode(UUID.randomUUID().toString());
+        user.setActivationCode(UUID.randomUUID().toString());
         userRepository.save(user);
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format("Hello %s!+\n" +
                             "Welcome to Sweater. Please to activate link : http:/localhost:8090/activate/%s",
-                    user.getUsername(), user.getActovationCode());
+                    user.getUsername(), user.getActivationCode());
             mailSend.send(user.getEmail(), "Activation code", message);
         }
         return true;
@@ -50,7 +49,7 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             return false;
         }
-        user.setActovationCode(null);
+        user.setActivationCode(null);
         userRepository.save(user);
         return true;
     }

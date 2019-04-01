@@ -17,7 +17,7 @@ public class User implements UserDetails {
     private boolean active;
 
     private String email;
-    private String actovationCode;
+    private String activationCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(joinColumns = @JoinColumn(name = "user_id"))
@@ -102,11 +102,11 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public String getActovationCode() {
-        return actovationCode;
+    public String getActivationCode() {
+        return activationCode;
     }
 
-    public void setActovationCode(String actovationCode) {
-        this.actovationCode = actovationCode;
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
     }
 }
