@@ -31,13 +31,17 @@ public class MailConfig  {
     @Bean
     public JavaMailSender getMailSend() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
         mailSender.setHost(host);
         mailSender.setUsername(username);
         mailSender.setPassword(password);
         mailSender.setPort(port);
+
         Properties properties = mailSender.getJavaMailProperties();
+
         properties.setProperty("mail.transport.protocol", protocol);
         properties.setProperty("mail.debug", debug);
+
         return mailSender;
     }
 }

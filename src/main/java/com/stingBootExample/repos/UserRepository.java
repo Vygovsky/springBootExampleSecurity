@@ -9,6 +9,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByUsername(String username);
 
     User  findByActivationCode(String code);
-    //User  findByActivationCode(String code);
-   // User findUserActivationCode(String code);
+
 }
